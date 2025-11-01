@@ -65,3 +65,34 @@ export const login = async ( req , res ) => {
         res.status(500).json({message:'Internal Server Error',success:false})
     }
 }
+
+
+export const Update = async ( req , res ) => {
+    try {
+        const userId = req.params.id
+        const updatedData = req.body
+
+        const user = await User.findByIdAndUpdate(userId,updatedData)
+        if (!user) {
+            return res.status(400).json({message:'User Not Found'})
+        }
+
+        res.status(200).json({message:'Update Success',success:true , user : user})
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:'Internal Server Error',success:false})
+    }
+}
+
+export const logout = async ( req , res ) => {
+    try {
+        res.clearCookie('token',{
+            httpOnly : true
+        })
+        res.status(200).json({message:'LogOut Success',success:true})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:'Internal Server Error',success:false})
+    }
+}
