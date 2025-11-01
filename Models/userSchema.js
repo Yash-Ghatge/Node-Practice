@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     inRolled : [
         {
             course : { type : mongoose.Schema.Types.ObjectId , ref : 'course'},
-            // date : { type : Date.now()}
+            date : { type : Date , default : Date.now()}
         }
     ]
 });

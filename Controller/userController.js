@@ -1,6 +1,7 @@
 import User from "../Models/userSchema.js"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import Course from "../Models/courseSchema.js"
 
 
 export const register = async ( req , res ) => {
@@ -118,6 +119,31 @@ export const Profile = async ( req , res ) => {
             return res.status(400).json({message:'User Not Found'})
         }
         res.status(200).json({message:'Success',success:true,data:user})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:'Internal Server Error',success:false})
+    }
+}
+
+export const inRoll = async ( req , res ) => {
+    try {
+        const userId = req.userId
+        const courseId = req.params.id
+
+        const user = await User.findById(userId)
+        const course = await Course.findById(courseId)
+
+        if (!course) {
+            return res.status(400).json({message:'Course Not Found'})
+        }
+
+        course.inRolled.push({ student : user._id})
+        await course.save()
+
+        user.inRolled.push({ course : course._id})
+        await user.save()
+
+        res.status(200).json({success:true,message:"Inrolled in course successfully",data:[user,course]})
     } catch (error) {
         console.log(error)
         res.status(500).json({message:'Internal Server Error',success:false})
