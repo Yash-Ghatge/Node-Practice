@@ -6,9 +6,9 @@ const userRouter = express.Router()
 
 userRouter.post('/register',register)
 userRouter.post('/login',login)
-userRouter.post('/update/:id',Update)
+userRouter.put('/update',auth,Update)
 userRouter.post('/logout',logout)
 userRouter.get('/Allprofile',AllProfile)
-userRouter.get('/profile/:id',auth,Profile)
+userRouter.get('/profile',auth,Profile)
 
 export default userRouter

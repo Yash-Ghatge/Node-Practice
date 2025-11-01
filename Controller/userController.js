@@ -69,7 +69,7 @@ export const login = async ( req , res ) => {
 
 export const Update = async ( req , res ) => {
     try {
-        const userId = req.params.id
+        const userId = req.userId
         const updatedData = req.body
 
         const user = await User.findByIdAndUpdate(userId,updatedData)
@@ -112,7 +112,7 @@ export const AllProfile = async ( req , res ) => {
 
 export const Profile = async ( req , res ) => {
     try {
-        const userId = req.params.id
+        const userId = req.userId
         const user = await User.findById(userId)
         if (!user) {
             return res.status(400).json({message:'User Not Found'})
