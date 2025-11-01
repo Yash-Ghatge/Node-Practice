@@ -113,7 +113,7 @@ export const AllProfile = async ( req , res ) => {
 export const Profile = async ( req , res ) => {
     try {
         const userId = req.params.id
-        const user = await User.findOne(userId)
+        const user = await User.findById(userId)
         if (!user) {
             return res.status(400).json({message:'User Not Found'})
         }
