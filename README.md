@@ -12,6 +12,8 @@ Authentication
 
 CRUD operations
 
+Pagination
+
 Proper File system
 
 Creating simple servers
