@@ -100,7 +100,10 @@ export const logout = async ( req , res ) => {
 
 export const AllProfile = async ( req , res ) => {
     try {
-        const users = await User.find().limit(5)
+        const page = parseInt(req.query.page) || 1
+        const limit = 2
+        const skip = (page - 1) * limit
+        const users = await User.find().skip(skip).limit(limit)
         if (!users) {
             return res.status(400).json({message:'Users Not Found'})
         }
