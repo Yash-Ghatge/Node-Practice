@@ -26,7 +26,7 @@ export const getcourse = async ( req , res ) => {
         const skip = (page - 1) * limit
 
         const courses = await Course.find().skip(skip).limit(limit)
-        if (!courses) {
+        if (courses.length === 0) {
             return res.status(400).json({success:true,data:courses})
         }
     } catch (error) {

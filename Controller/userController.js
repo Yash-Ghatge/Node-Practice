@@ -104,7 +104,7 @@ export const AllProfile = async ( req , res ) => {
         const limit = 2
         const skip = (page - 1) * limit
         const users = await User.find().skip(skip).limit(limit)
-        if (!users) {
+        if (users.length === 0) {
             return res.status(400).json({message:'Users Not Found'})
         }
         res.status(200).json({message:'Success',success:true,data:users})
